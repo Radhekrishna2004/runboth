@@ -11,4 +11,4 @@ RUN apt-get update \
  && chmod a+rx /usr/local/bin/yt-dlp
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-CMD ["sh", "-c", "cp /etc/secrets/cookies.txt /tmp/cookies.txt 2>/dev/null; java -Xmx400m -jar app.jar --server.port=${PORT:-8080}"]
+CMD ["sh", "-c", "cp /etc/secrets/cookies.txt /tmp/cookies.txt; ls -l /etc/secrets /tmp/cookies.txt; (yt-dlp --cookies /tmp/cookies.txt --skip-download -v https://youtu.be/TS8wb9IMHA4 2>&1 | tail -n 25 &); java -Xmx400m -jar app.jar --server.port=${PORT:-8080}"]
