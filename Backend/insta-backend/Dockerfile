@@ -11,4 +11,4 @@ RUN apt-get update \
  && chmod a+rx /usr/local/bin/yt-dlp
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-CMD ["sh", "-c", "java -Xmx400m -jar app.jar --server.port=${PORT:-8080}"]
+CMD ["sh", "-c", "cp /etc/secrets/cookies.txt /tmp/cookies.txt 2>/dev/null; java -Xmx400m -jar app.jar --server.port=${PORT:-8080}"]
